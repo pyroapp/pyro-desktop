@@ -22,7 +22,7 @@ window.onpopstate = () => {
 
 
 firebase.auth().onAuthStateChanged(async user => {
-    if (!user) return redirect('login');
+    if (!user) return redirect('login.html');
 
     await firebase.firestore().collection('users').doc(user.uid).onSnapshot(snapshot => {
         CACHED_USERS[user.uid] = {
