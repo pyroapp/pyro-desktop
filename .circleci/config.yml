@@ -14,12 +14,6 @@ jobs:
       - run:
           name: Install Dependencies
           command: npm install
-      - run:
-          name: Install dpkg and fakeroot
-          command: |
-            sudo apt-get update -y
-            sudo apt-get install -y dpkg fakeroot
-
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
@@ -29,6 +23,10 @@ jobs:
           command: npm run make  
       - store_artifacts:
           path: ~/repo/out/make
+
+  test:
+    working_directory: ~/repo
+    steps:
       - run:
           name: Test builds
           command: npm test 
