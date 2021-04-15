@@ -33,4 +33,4 @@ jobs:
           name: Test builds
           command: npm test 
       - store_test_results:
-          path: ~/repo/.jestxml/jest-tests.xml
+          path: ~/repo/test-results/jest/results.xml

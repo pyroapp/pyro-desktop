@@ -49,7 +49,7 @@
     "reporters": [ "default", "jest-junit" ]
   },
   "jest-junit": {
-    "outputDirectory": ".jestxml",
-    "outputName": "jest-tests.xml"
+    "outputDirectory": "test-results/jest/",
+    "outputName": "results.xml"
   }
 }
