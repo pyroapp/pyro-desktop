@@ -12,10 +12,10 @@
 /**
  * 
  */
-async function loadPrivateChannels() {
+function loadPrivateChannels() {
     const { uid } = firebase.auth().currentUser;
 
-    await firebase.firestore().collection('channels')
+    firebase.firestore().collection('channels')
     .where('recipients', 'array-contains', uid)
     .where('type', '==', 'DM')
     .limit(50)
@@ -41,10 +41,12 @@ async function loadPrivateChannels() {
 
                     if (CACHED_USERS[recipient]) return; // User already exists
 
-                    await firebase.firestore().collection('users').doc(recipient).onSnapshot(snapshot => {
+                    const listener = firebase.firestore().collection('users').doc(recipient).onSnapshot(snapshot => {
                         CACHED_USERS[recipient] = {
                             ...snapshot.data()
                         };
+
+                        CACHED_LISTENERS[channel.id] = listener;
 
                         setRealtimeUserInfo(recipient);
                     });
@@ -73,9 +75,13 @@ async function blockedUserHandler() {
         }
 
         // Get channels from DOM
-        const channelsDOM = document.getElementById('privateChannelsList').childNodes;
+        const channelsDOM = document.getElementById('privateChannelsList').children;
 
-        channelsDOM.forEach(channelDOM => {
+        // console.log(channelsDOM);
+
+        Array.prototype.slice.call(channelsDOM).forEach(channelDOM => {
+            if (!channelDOM.id.startsWith('channel')) return;
+
             const channel_id = channelDOM.id.split('-')[1];
             const friend_uid = channelDOM.getAttribute('uid');
 
@@ -167,11 +173,6 @@ async function blockedUserHandler() {
     `;
 
     return channelsList.appendChild(a);
-
-    // Close private channel button
-    a.querySelectorAll('.closeButton-2GCmT5')[0].onclick = () => {
-        closePrivateChannel(channel_id);
-    }
 }
 
 
@@ -183,7 +184,23 @@ async function blockedUserHandler() {
         element.classList.remove('selected-aXhQR6');
     });
 
-    document.getElementById(channelId).classList.add('selected-aXhQR6');
+    const channel = document.getElementById(channelId);
+    const parent = channel.parentElement.id;
+
+    const pc_list = document.querySelectorAll('.headerText-2F0828')[0];
+    const gc_list = document.querySelectorAll('.headerText-2F0828')[1];
+
+    if (parent === 'groupChatsList') {
+        gc_list.classList.add('list-selected-3j930');
+        pc_list.classList.remove('list-selected-3j930');
+
+    } else if (parent === 'privateChannelsList') {
+        gc_list.classList.remove('list-selected-3j930');
+        pc_list.classList.add('list-selected-3j930');
+
+    }
+
+    channel.classList.add('selected-aXhQR6');
 }
 
 
@@ -194,9 +211,9 @@ async function selectChannel(channel_id) {
     toggleSelectedChannel(`channel-${channel_id}`);
 
     channel_id = channel_id.toString(); // Not sure why it sometimes returns an int
-    
+
     if (channel_id === 'friends') return; // Don't load messages for friends channel
-    if (CACHED_PRIVATE_CHAT_LISTENERS[channel_id]) return; // If listener already exists
+    if (CACHED_CHAT_LISTENERS[channel_id]) return; // If listener already exists
 
     loadPrivateMessages(channel_id);
 }
@@ -214,7 +231,7 @@ async function closePrivateChannel(channel_id) {
     });
 
     // Remove from listener cache
-    delete CACHED_PRIVATE_CHAT_LISTENERS[channel_id];
+    delete CACHED_LISTENERS[channel_id];
 
     // Determine if the selected user is being removed,
     // select the first user in the list.

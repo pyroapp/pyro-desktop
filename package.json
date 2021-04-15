@@ -1,7 +1,7 @@
 {
   "name": "pyro-desktop",
   "version": "1.0.0",
-  "main": "internal/public/index.js",
+  "main": "index.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -12,8 +12,7 @@
   "license": "ISC",
   "description": "Ignite your community",
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0",
-    "fkill": "^7.1.1"
+    "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.54",
@@ -25,7 +24,7 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": { "asar": true, "ignore": [".vscode", ".gitignore"]},
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",

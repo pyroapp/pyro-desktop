@@ -91,6 +91,8 @@ async function signup() {
 
         const { user: { uid } } = user;
 
+        await uploadDefaultAvatar(uid);
+
         await firebase.firestore().collection('users').doc(uid).set({
             username: username,
             discriminator: discriminator,
@@ -102,13 +104,9 @@ async function signup() {
             premium_type: null,
             status: 'online',
             mute_notifications: false,
-        }, {
-            merge: true
         });
 
-        await uploadDefaultAvatar(uid);
-
-        redirect('/channels/@me');
+        redirect('app.html');
     } catch (error) {
         if (error.code === 'auth/email-already-in-use') {
             showInputError('emailField');

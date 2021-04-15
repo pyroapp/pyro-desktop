@@ -3146,7 +3146,7 @@ section .button.flat-bordered:hover {
 	text-align: center;
 	font-size: 16px;
 	line-height: 140%;
-	font-weight: 600
+	font-weight: 600;
 }
 
 .link-oDO0Ir {
@@ -7071,7 +7071,7 @@ section p a:hover {
 
 .otherwise1-2b46W8 {
 	top: -3px;
-	+ leftp: 418px -400px
+	+leftp: 418px -400px
 }
 
 .otherwise2-EJ9Jp5 {

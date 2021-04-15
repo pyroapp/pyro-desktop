@@ -10,16 +10,17 @@
 
 // Global Cache
 const CACHED_USERS = {};
-const CACHED_CHANNELS = {};
+const CACHED_GROUP_CHAT_CHANNELS = {};
 const CACHED_RECIPIENTS = {};
-const CACHED_PRIVATE_CHAT_LISTENERS = {};
+const CACHED_CHAT_LISTENERS = {};
+const CACHED_LISTENERS = {};
 
 // Global thresholds
 const LOADING_TIMEOUT = 1500;
 const ACTIVITY_TIMEOUT = 3000;
 const IDLE_TIMEOUT = 10000;
 const INITIAL_MESSAGE_FETCH = 50;
-const GROUP_DMS_USER_THRESHOLD = 4; // Not including current user
+const GROUP_DMS_USER_THRESHOLD = 14; // Not including current user
 
 // Global user status colours
 const STATUS_COLOURS = {
@@ -56,20 +57,22 @@ const AUTH_CODES = {
 const DID_YOU_KNOW = [
     'Deobfuscating the obfuscation!',
     'Now with 100% less Nitro!',
-    'Go say something nice to a friend!',
-    'Pyro is cool, and you are too!',
     'Organic, gluten-free, non-GMO code!',
     'Spaghettifying the spaghetto!',
     'Spark a conversation!',
     'Lighting up a nice campfire for you!',
     'Say hi at your local Pyro tavern - hot chocolate included!',
-    'Robo will remember that.',
-    'Hyperion says: "Damn, nice profile picture!"',
-    'Firebase says: "How many writes will you do today?"',
-    'Sargon says: "Trouble connecting? Check Pyro\'s status." (Get it? It\'s a downtime joke!)',
     'Unpack the webpack!',
     'Doing wizardly math stuff!',
     'Caring for the fonts!',
     'Lighting the way to camp!',
-    'Be more like doko.'
+    'Made you a cup of hot chocolate!',
+    'Late night gaming or planning your next dinner?',
+    'Welcome back to Pyro!',
+    'Preparing a warm welcome!',
+    'Make a new friend!',
+    'Be more like doko.',
+    'Pyro > Discord > Guilded',
+    'It\'s time to ditch Skype and Discord',
+    'Generating handlers...'
 ];

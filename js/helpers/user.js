@@ -17,7 +17,7 @@ async function uploadDefaultAvatar(name) {
     // Generate a random colour for the profile picture
     const avatars = ['blue', 'green', 'yellow', 'red'];
     const index = generateRandom(0, avatars.length - 1);
-    const path = `/img/avatar_${avatars[index]}.png`;
+    const path = `img/avatar_${avatars[index]}.png`;
 
     // Get image into blob format for upload
     const blob = await (await fetch(path)).blob();

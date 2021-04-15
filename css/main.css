@@ -1578,13 +1578,13 @@
 }
 
 .theme-dark .lookFilled-1Gx00P.colorPrimary-3b3xI6 {
-	color: #f6f6f7;
-	background-color: #4f545c
+	color: #000;
+	background-color: #febe10
 }
 
 .theme-dark .lookFilled-1Gx00P.colorPrimary-3b3xI6:active,
 .theme-dark .lookFilled-1Gx00P.colorPrimary-3b3xI6:hover {
-	background-color: #72767d
+	background-color: #d4a010
 }
 
 .theme-dark .lookFilled-1Gx00P.colorPrimary-3b3xI6 .spinnerItem-3GlVyU {
@@ -2775,7 +2775,9 @@
 	flex-direction: column
 }
 
-
+.nonEmbeddedLeftSplit-3z6mge {
+	/* max-width: 1480px; */
+}
 
 .mobileWave-1vJwyR {
 	position: fixed;
@@ -2874,7 +2876,7 @@
 }
 
 .theme-dark .root-1gCeng {
-	background-color: #36393f;
+	background-color: #1a1a23;
 	-webkit-box-shadow: 0 0 0 1px rgba(32, 34, 37, .6), 0 2px 10px 0 rgba(0, 0, 0, .2);
 	box-shadow: 0 0 0 1px rgba(32, 34, 37, .6), 0 2px 10px 0 rgba(0, 0, 0, .2)
 }
@@ -2915,7 +2917,7 @@
 }
 
 .theme-dark .footer-2gL1pp {
-	background-color: #2f3136;
+	background-color: #17171f;
 	-webkit-box-shadow: inset 0 1px 0 rgba(47, 49, 54, .6);
 	box-shadow: inset 0 1px 0 rgba(47, 49, 54, .6)
 }
@@ -6251,7 +6253,7 @@ code {
 	--elevation-high:0 8px 16px rgba(0, 0, 0, 0.24);
 	--logo-primary:#fff;
 	--focus-primary:#00b0f4;
-	--radio-group-dot-foreground:#8ea1e1;
+	--radio-group-dot-foreground:#febe10;
 	--guild-header-text-shadow:0 1px 1px rgba(0, 0, 0, 0.4);
 	--channeltextarea-background:#101015;
 	--activity-card-background:#202225;
@@ -10585,6 +10587,7 @@ img[alt] {
 
 .item-26Dhrx[aria-checked=true] {
 	background-color:var(--background-tertiary);
+	transition: ease-in-out 0.15s;
 	color:var(--interactive-active)
 }
 
@@ -10595,6 +10598,7 @@ img[alt] {
 .item-26Dhrx {
 	background-color:var(--background-secondary);
 	color:var(--interactive-normal);
+	transition: ease-in-out 0.15s;
 	cursor:pointer;
 	border-radius:3px;
 	display:block
@@ -11857,7 +11861,7 @@ img[alt] {
 }
 
 .iconWrapper-3LVgIo {
-	cursor:pointer
+	cursor:pointer;
 }
 
 .icon-TYbVk4 {
@@ -15582,6 +15586,14 @@ img[alt] {
 	text-indent:0
 }
 
+.messageContent-2qWWxC > .emoji {
+	font-size: 18px;
+}
+
+.list-selected-3j930 {
+	color: white;
+}
+
 .cozy-3raOZG .messageContent-2qWWxC {
 	position:relative
 }
@@ -15831,7 +15843,8 @@ img[alt] {
 	white-space:nowrap;
 	text-overflow:ellipsis;
 	overflow:hidden;
-	position:relative
+	position:relative;
+	height: 22px;
 }
 
 .arrow-gKvcEx {
@@ -16499,9 +16512,9 @@ img[alt] {
 }
 
 .px-10SIf7.botTag-2WPJ74 {
-	height:15px;
+	height:18px;
 	padding:0 4px;
-	margin-top:1px;
+	margin-top:2px;
 	border-radius:3px
 }
 
@@ -16513,8 +16526,9 @@ img[alt] {
 }
 
 .botTagRegular-2HEhHi {
-	background:#7289da;
-	color:#fff
+	background:#febe10;
+	color:#000;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .botTagInvert-18-95s {
