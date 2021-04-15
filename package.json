@@ -24,27 +24,19 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": { "asar": true, "ignore": [".vscode", ".gitignore"]},
+      "packagerConfig": {
+        "asar": true,
+        "ignore": [
+          ".vscode",
+          ".gitignore"
+        ]
+      },
       "makers": [
         {
-          "name": "@electron-forge/maker-squirrel",
+          "name": "@electron-forge/maker-zip",
           "config": {
             "name": "pyro_desktop"
           }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
         }
       ]
     }
