@@ -23,10 +23,6 @@ jobs:
           command: npm run make  
       - store_artifacts:
           path: ~/repo/out/make
-
-  test:
-    working_directory: ~/repo
-    steps:
       - run:
           name: Test builds
           command: npm test 
