@@ -26,7 +26,11 @@ jobs:
             - ./node_modules
       - run:
           name: Generate Builds
-          command: npm run make
-
+          command: npm run make  
       - store_artifacts:
           path: ~/repo/out/make
+      - run:
+          name: Test builds
+          command: npm test 
+      - store_test_results:
+          path: ~/repo/.jestxml/jest-tests.xml
