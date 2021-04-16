@@ -1,14 +1,19 @@
 version: 2.1
+
+orbs: 
+    win: circleci/windows@2.2.0
+
 jobs:
   build:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:14
+    working_directory: C:\Users\circleci\repo
+    executor:
+      name: win/default
+      shell: powershell.exe
     steps:
       - checkout
       - run:
           name: Update NPM
-          command: "sudo npm install -g npm"
+          command: "npm install -g npm"
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
@@ -17,14 +22,14 @@ jobs:
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
-            - ./node_modules
+            - C:\Users\circleci\repo\node_modules
       - run:
           name: Generate Builds
           command: npm run make  
       - store_artifacts:
-          path: ~/repo/out/make
+          path: C:\Users\circleci\repo\out\make
       - run:
           name: Test builds
           command: npm test 
       - store_test_results:
-          path: ~/repo/test-results/
+          path: C:\Users\circleci\repo\test-results
