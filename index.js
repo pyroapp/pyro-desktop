@@ -7,21 +7,23 @@ function pyrostart() {
             width: 800,
             height: 600,
             webPreferences: {
-                preload: "preload.js"
+                preload: "preload.js",
+                webviewTag: true
             },
             show: false,
             icon: "static/desktop_icon.ico",
             titleBarStyle: 'hidden',
             hasShadow: true,
-            autoHideMenuBar: true
-
+            autoHideMenuBar: true,
+            frame: false,
+            backgroundColor: "#101015"
         })
 
-        pyro.loadFile('app.html').then()
+        pyro.loadFile('topbar.html').then()
         
         app.on('activate', () => {
             if (BrowserWindow.getAllWindows().length === 0) {
-                pyro.loadFile('app.html').then(null)
+                pyro.loadFile('topbar.html').then(null)
             }
         })
         
