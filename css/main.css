@@ -71174,17 +71174,12 @@ html .invoiceCancelRow-3mYhFX {
 	-webkit-box-flex:0;
 	-ms-flex:0 0 auto;
 	flex:0 0 auto;
-	background:var(--background-secondary)
+	background:var(--background-secondary);
+	border-radius:14px 0 0 0;
 }
 
 .platform-win .sidebar-2K8pFh {
-	border-radius:8px 0 0;
 	overflow:hidden
-}
-
-.sidebar-2K8pFh.hasNotice-1XRy4h,
-.platform-win .sidebar-2K8pFh.hasNotice-1XRy4h {
-	border-radius:0
 }
 
 .panels-j1Uci_ {
