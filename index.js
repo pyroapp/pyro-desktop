@@ -1,11 +1,12 @@
-const {app, BrowserWindow } = require('electron')
+const {app, BrowserWindow, globalShortcut, Menu, Tray } = require('electron')
+let pyroTray = null;
 
 function pyrostart() {
     console.log('App loading')
     app.whenReady().then(() => {
         const pyro = new BrowserWindow({
-            width: 800,
-            height: 600,
+            width: 1280,
+            height: 720,
             webPreferences: {
                 preload: "preload.js",
                 webviewTag: true
@@ -18,7 +19,6 @@ function pyrostart() {
             frame: false,
             backgroundColor: "#101015"
         })
-
         pyro.loadFile('topbar.html').then()
         
         app.on('activate', () => {
@@ -29,6 +29,26 @@ function pyrostart() {
         
         pyro.show()
         console.log('App loaded')
+
+        // Keyboard shortcut to open Pyro
+        globalShortcut.register('Alt+P', () => {
+            pyro.show()
+          })
+        // init tray menu and set labels/functions
+        pyroTray = new Tray('img/favicon.png');
+        const pyroContextMenu = Menu.buildFromTemplate([
+            { label: 'Open Pyro', type: 'normal', click: () => pyro.show() },
+            { label: 'Separator', type: 'separator' },
+            { label: 'Paste Clipboard', type: 'normal' },
+            { label: 'Upload File', type: 'normal' },
+            { label: 'Separator', type: 'separator' },
+            { label: 'Credits', type: 'normal' },
+            { label: 'Quit Pyro', type: 'normal', click: () => app.quit()}
+        ])
+        // Set the tray menu
+        pyroTray.setToolTip("Pyro App");
+        pyroTray.setContextMenu(pyroContextMenu)
+
     })
 }
 
