@@ -4,8 +4,8 @@ function pyrostart() {
     console.log('App loading')
     app.whenReady().then(() => {
         const pyro = new BrowserWindow({
-            width: 800,
-            height: 600,
+            width: 1400,
+            height: 800,
             webPreferences: {
                 preload: "preload.js",
                 webviewTag: true
