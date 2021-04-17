@@ -1,3 +1,36 @@
+.desktop-titlebar {
+	height: 30px;
+	background: #101015;
+	-webkit-user-select: none;
+	-webkit-app-region: drag;
+	display: flex;
+	align-items: center;
+	padding-left: 10px;
+	justify-content: space-between;
+}
+
+.closebuttons {
+	display: inline-flex;
+	font-family: Arial, Helvetica, sans-serif;
+	color: white;
+}
+
+.close {
+	height: 30px;
+	width: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	-webkit-app-region: no-drag;
+	cursor: pointer;
+}
+
+.close:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+
+/* App code */
 .ring-13rgEW {
 	position: absolute;
 	display: none;
@@ -71210,17 +71243,12 @@ html .invoiceCancelRow-3mYhFX {
 	-webkit-box-flex:0;
 	-ms-flex:0 0 auto;
 	flex:0 0 auto;
-	background:var(--background-secondary)
+	background:var(--background-secondary);
+	border-radius:14px 0 0 0;
 }
 
 .platform-win .sidebar-2K8pFh {
-	border-radius:8px 0 0;
 	overflow:hidden
-}
-
-.sidebar-2K8pFh.hasNotice-1XRy4h,
-.platform-win .sidebar-2K8pFh.hasNotice-1XRy4h {
-	border-radius:0
 }
 
 .panels-j1Uci_ {

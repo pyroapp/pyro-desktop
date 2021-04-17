@@ -1,15 +1,22 @@
-const {app, BrowserWindow, globalShortcut, Menu, Tray } = require('electron')
+const {app, BrowserWindow, globalShortcut, Menu, Tray, ipcMain } = require('electron')
 let pyroTray = null;
+var pyro;
+
 
 function pyrostart() {
     console.log('App loading')
     app.whenReady().then(() => {
-        const pyro = new BrowserWindow({
-            width: 1280,
-            height: 720,
+        pyro = new BrowserWindow({
+            width: 1400,
+            height: 800,
+            minWidth: 1000,
+            minHeight: 600,
+
             webPreferences: {
                 preload: "preload.js",
-                webviewTag: true
+                webviewTag: true,
+                nodeIntegration: true,
+                contextIsolation: false
             },
             show: false,
             icon: "static/desktop_icon.ico",
@@ -19,6 +26,7 @@ function pyrostart() {
             frame: false,
             backgroundColor: "#101015"
         })
+
         pyro.loadFile('app.html').then()
         
         app.on('activate', () => {
@@ -58,4 +66,8 @@ app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit()
     }
+})
+
+ipcMain.on('minimize', () => {
+    pyro.minimize()
 })
