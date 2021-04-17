@@ -19,11 +19,11 @@ function pyrostart() {
             frame: false,
             backgroundColor: "#101015"
         })
-        pyro.loadFile('topbar.html').then()
+        pyro.loadFile('app.html').then()
         
         app.on('activate', () => {
             if (BrowserWindow.getAllWindows().length === 0) {
-                pyro.loadFile('topbar.html').then(null)
+                pyro.loadFile('app.html').then(null)
             }
         })
         
