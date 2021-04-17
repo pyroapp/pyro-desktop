@@ -6427,6 +6427,42 @@ code {
 	--deprecated-text-input-border-disabled:#dcddde;
 	--deprecated-text-input-prefix:#b9bbbe
 }
+.desktop-titlebar {
+	height: 30px;
+	background: #101015;
+	-webkit-user-select: none;
+	-webkit-app-region: drag;
+	display: flex;
+	align-items: center;
+	padding-left: 10px;
+	justify-content: space-between;
+}
+
+.closebuttons {
+	display: inline-block;
+	font-family: Arial, Helvetica, sans-serif;
+	color: white;
+}
+
+.close {
+	height: 30px;
+	width: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	-webkit-app-region: no-drag;
+	cursor: pointer;
+}
+
+.close:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+webview {
+	position: absolute;
+	height: calc(100vh - 30px);
+	width: 100%;
+}
 
 .appMount-3lHmkl,
 body,

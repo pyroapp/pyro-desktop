@@ -67,6 +67,7 @@ node_modules/
 
 #jest out
 .jestxml/
+test-results/
 
 internal/logs
 internal/*.log
