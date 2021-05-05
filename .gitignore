@@ -97,3 +97,5 @@ internal/.yarn-integrity
 internal/.env
 out/
 build/
+out.zip
+build.zip

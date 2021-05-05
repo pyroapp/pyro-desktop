@@ -23,8 +23,11 @@ jobs:
       - run:
           name: Generate Builds
           command: npx electron-packager ./ pyro --all --asar --icon="./static/desktop_icon" --out="./build" --overwrite  
+      - run:
+          name: Compress Builds
+          command: tar.exe -a -c -f build.zip build  
       - store_artifacts:
-          path: C:\Users\circleci\repo\build
+          path: C:\Users\circleci\repo\build.zip
       - run:
           name: Test builds
           command: npm test 
