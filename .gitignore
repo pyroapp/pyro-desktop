@@ -96,3 +96,4 @@ internal/*.tgz
 internal/.yarn-integrity
 internal/.env
 out/
+build/

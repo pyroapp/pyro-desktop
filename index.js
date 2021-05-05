@@ -1,7 +1,7 @@
 const {app, BrowserWindow, globalShortcut, Menu, Tray, ipcMain } = require('electron')
+
 let pyroTray = null;
 var pyro;
-
 
 function pyrostart() {
     console.log('App loading')

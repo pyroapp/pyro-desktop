@@ -3,8 +3,8 @@
 //?  /helpers/user.js
 //?  Pyro Chat
 //?
-//?  Developed by Robolab LLC
-//?  Copyright (c) 2021 Robolab LLC. All Rights Reserved
+//?  Developed by Pyro Communications LLC
+//?  Copyright (c) 2021 Pyro Communications LLC. All Rights Reserved
 //?     
 //? ------------------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ async function uploadDefaultAvatar(name) {
     // Generate a random colour for the profile picture
     const avatars = ['blue', 'green', 'yellow', 'red'];
     const index = generateRandom(0, avatars.length - 1);
-    const path = `img/avatar_${avatars[index]}.png`;
+    const path = `/img/avatar_${avatars[index]}.png`;
 
     // Get image into blob format for upload
     const blob = await (await fetch(path)).blob();
@@ -32,11 +32,10 @@ async function uploadDefaultAvatar(name) {
  * @param {*} userId
  * @returns 
  */
-function getAvatar(userId) {
-    const path = 'https://firebasestorage.googleapis.com/v0/b/pyro-chat.appspot.com/o/avatars%2F';
-    let { uid } = firebase.auth().currentUser;
-    
-    if (userId) uid = userId;
+function getAvatar(user_id) {
+    const bucket = 'pyro-' + (isStaging() ? 'staging' : 'production');
+    const path = `https://firebasestorage.googleapis.com/v0/b/${bucket}.appspot.com/o/avatars%2F`;
+    const uid = user_id || firebase.auth().currentUser.uid;
 
     return `${path}${uid}.gif?alt=media`;
 }
@@ -128,19 +127,51 @@ async function isFriend(username, discriminator) {
  * 
  * @param {*} uid 
  */
+const addUserToCache = (uid) => {
+    return new Promise((resolve, reject) => {
+        const listener = firebase.firestore().collection('users').doc(uid).onSnapshot(snapshot => {
+            CACHED_USERS[uid] = {
+                ...snapshot.data()
+            };
+    
+            CACHED_LISTENERS[uid] = listener;
+    
+            setRealtimeUserInfo(uid);
+            resolve();
+        });
+    });
+}
+
+
+/**
+ * 
+ * @param {*} uid 
+ */
  function setRealtimeUserInfo(uid) {
     const elements = document.querySelectorAll(`[uid="${uid}"]`);
 
     elements.forEach(element => {
         const statusEl = element.querySelectorAll('.RT_status');
+        const cusStatusEl = element.querySelectorAll('.RT_customstatus');
         const usernameEl = element.querySelectorAll('.RT_username');
         const discrminiatorEl = element.querySelectorAll('.RT_discriminator');
 
-        const { status, username, discriminator } = CACHED_USERS[uid];
+        const { status, custom_status, username, discriminator } = CACHED_USERS[uid];
+
+        const statusText = {
+            online: "Online",
+            idle: "Idle",
+            dnd: "Do Not Disturb",
+            offline: "Offline"
+        };
 
         statusEl.forEach(s => {
             s.setAttribute('fill', STATUS_COLOURS[status]);
             s.setAttribute('mask', `url(#svg-mask-status-${status})`);
+        });
+
+        cusStatusEl.forEach(u => {
+            u.innerText = custom_status || statusText[status];
         });
 
         usernameEl.forEach(u => {

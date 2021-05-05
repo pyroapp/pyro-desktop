@@ -22,9 +22,9 @@ jobs:
             - C:\Users\circleci\repo\node_modules
       - run:
           name: Generate Builds
-          command: npm run make  
+          command: npx electron-packager ./ pyro --all --asar --icon="./static/desktop_icon" --out="./build" --overwrite  
       - store_artifacts:
-          path: C:\Users\circleci\repo\out\make
+          path: C:\Users\circleci\repo\build
       - run:
           name: Test builds
           command: npm test 

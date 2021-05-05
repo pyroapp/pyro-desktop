@@ -3,8 +3,8 @@
 //?  /helpers/interface.js
 //?  Pyro Chat
 //?
-//?  Developed by Robolab LLC
-//?  Copyright (c) 2021 Robolab LLC. All Rights Reserved
+//?  Developed by Pyro Communications LLC
+//?  Copyright (c) 2021 Pyro Communications LLC. All Rights Reserved
 //?     
 //? ------------------------------------------------------------------------------------
 
@@ -58,7 +58,7 @@ function showPageLoader() {
     loader.innerHTML = `
         <div class="container-16j22k fixClipping-3qAKRb" style="opacity: 1;">
             <div class="content-1-zrf2">
-            <img src="/vid/pyroFlames.gif" alt="Pyro Campfire GIF">
+            <img src="/img/pyroFlames.gif" alt="Pyro Campfire GIF">
             <div class="text-3c9Zq1">
                 <div class="tipTitle-GL9qAt"><br>Pyro is loading, give us a sec.</div>
                     <div class="tip-2cgoli">${generateDidYouKnowMessage()}</div>
@@ -68,7 +68,7 @@ function showPageLoader() {
             <div class="problems-3mgf6w slideIn-sCvzGz">
                 <div class="problemsText-1Yx-Kl">Connection problems? Let us know!</div>
                 <div>
-                    <a class="anchor-3Z-8Bb anchorUnderlineOnHover-2ESHQB links-3Ldd4A" href="/status" rel="noreferrer noopener" target="_blank">
+                    <a class="anchor-3Z-8Bb anchorUnderlineOnHover-2ESHQB links-3Ldd4A" href="https://status.pyrochat.app" rel="noreferrer noopener" target="_blank">
                         <svg class="icon-3N9Bhy" aria-hidden="false" width="14" height="14" viewBox="0 0 14 14">
                         <path fill="currentColor" d="M6.99471698,9.67522659 C8.47108874,9.67522659 9.66792453,8.47748685 9.66792453,7 C9.66792453,5.52251315 8.47108874,4.32477341 6.99471698,4.32477341 C5.51834522,4.32477341 4.32150943,5.52251315 4.32150943,7 C4.32150943,8.47748685 5.51834522,9.67522659 6.99471698,9.67522659 Z M6.99471698,2.67522659 C8.18867925,2.67522659 9.26641509,3.16163142 10.0483019,3.94410876 L11.9396226,2.05135952 C10.6822642,0.782477341 8.92830189,0 6.99471698,0 C3.12754717,0 0,3.14048338 0,7 L2.67320755,7 C2.67320755,4.6102719 4.60679245,2.67522659 6.99471698,2.67522659 Z M11.3267925,7 C11.3267925,9.3897281 9.39320755,11.3247734 7.00528302,11.3247734 C5.81132075,11.3247734 4.73358491,10.8383686 3.94113208,10.0558912 L2.04981132,11.9486405 C3.31773585,13.2175227 5.06113208,14 6.99471698,14 C10.8618868,14 14,10.8595166 14,7 L11.3267925,7 Z"></path>
                         </svg>
@@ -235,28 +235,34 @@ function hidePrivateChannelPlaceholder() {
  * 
  * @param {*} channelId 
  */
-let lastChannelId;
-
 function loadChannelFromId(channel_id) {
     if (!channel_id) channel_id = getChannelFromURL();
-    if (lastChannelId === channel_id) return;
+    if (CURRENT_CHANNEL_ID == channel_id) return;
 
     let title = 'Pyro';
-    let path = 'app.html';
+    let path = '/channels/@me/';
 
     const channel = document.getElementById(`channel-${channel_id}`);
 
     if (channel) {
-        path = (channel_id === 'friends') ? 'app.html' : `app.html`;
+        path = (channel_id === 'friends') ? '/channels/@me/' : `/channels/@me/${channel_id}/`;
     } else {
         channel_id = 'friends';
     }
 
     window.history.pushState({}, title, path);
-    selectChannel(channel_id);
-    selectMainBody(channel_id);
 
-    lastChannelId = channel_id;
+    toggleSelectedChannelHeader(channel_id);
+
+    channel_id = channel_id.toString();
+
+    // Don't load messages for friends channel or if the listener already exists
+    if (channel_id !== 'friends' && !CACHED_CHAT_LISTENERS[channel_id]) {
+        loadPrivateMessages(channel_id);
+    }
+
+    selectMainBody(channel_id);
+    CURRENT_CHANNEL_ID = channel_id;
 }
  
  
@@ -272,13 +278,6 @@ function getChannelFromURL() {
     });
 
     const channel_id = path[path.length - 1];
-
-    // Friends page
-    const { uid } = firebase.auth().currentUser;
-
-    //TODO: FIX THIS UTTER SHIT CODE
-    // if (channel_id === '@me') return CACHED_USERS[uid].last_open_channel || '';
-
     const otherPages = ['embers'];
 
     return (isNaN(channel_id) && !otherPages.includes(channel_id)) ? false : channel_id;

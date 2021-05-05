@@ -3,8 +3,8 @@
 //?  /helpers/main.js
 //?  Pyro Chat
 //?
-//?  Developed by Robolab LLC
-//?  Copyright (c) 2021 Robolab LLC. All Rights Reserved
+//?  Developed by Pyro Communications LLC
+//?  Copyright (c) 2021 Pyro Communications LLC. All Rights Reserved
 //?     
 //? ------------------------------------------------------------------------------------
 
@@ -14,9 +14,12 @@
  * @returns 
  */
 function isStaging() {
-    const { protocol, host } = window.location;
+    const { host } = window.location;
 
-    return protocol === 'http:' && host === 'staging.pyrochat.app' || host === 'localhost:8000';
+    if (host === 'staging.pyrochat.app') return true;
+    if (host === 'localhost:8000') return true;
+
+    return false;
 }
 
 
@@ -153,3 +156,48 @@ function sortObjectByKey(key, order = 'asc') {
 function isMobile() {
     return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 }
+
+
+/**
+ * 
+ * @param {*} a1 
+ * @param {*} a2 
+ * @returns 
+ */
+function getArrayDifference(a1, a2) {
+    const a = [];
+    const diff = [];
+
+    for (i = 0; i < a1.length; i++) {
+        a[a1[i]] = true;
+    }
+
+    for (i = 0; i < a2.length; i++) {
+        if (a[a2[i]]) {
+            delete a[a2[i]];
+        } else {
+            a[a2[i]] = true;
+        }
+    }
+
+    for (k in a) {
+        diff.push(k);
+    }
+
+    return diff;
+}
+
+/**
+ * 
+ * @param {*} bytes 
+ * @returns 
+ */
+function bytesToSize(bytes) {
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    
+    if (bytes == 0) return '0.00 Bytes';
+
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+ 
+    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+ }

@@ -3,8 +3,8 @@
 //?  /app/chats.js
 //?  Pyro Chat
 //?
-//?  Developed by Robolab LLC
-//?  Copyright (c) 2021 Robolab LLC. All Rights Reserved
+//?  Developed by Pyro Communications LLC
+//?  Copyright (c) 2021 Pyro Communications LLC. All Rights Reserved
 //?     
 //? ------------------------------------------------------------------------------------
 
@@ -22,9 +22,15 @@
     div.innerHTML = `
         <section class="title-3qD0b- container-1r6BKw themed-ANHk51" id="private-header-${channel_id}">
             <div class="children-19S4PO">
-                <div class="iconWrapper-2OrFZ1" >
-                    <svg x="0" y="0" class="icon-22AiRD" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12 2C6.486 2 2 6.486 2 12C2 17.515 6.486 22 12 22C14.039 22 15.993 21.398 17.652 20.259L16.521 18.611C15.195 19.519 13.633 20 12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4C16.411 4 20 7.589 20 12V12.782C20 14.17 19.402 15 18.4 15L18.398 15.018C18.338 15.005 18.273 15 18.209 15H18C17.437 15 16.6 14.182 16.6 13.631V12C16.6 9.464 14.537 7.4 12 7.4C9.463 7.4 7.4 9.463 7.4 12C7.4 14.537 9.463 16.6 12 16.6C13.234 16.6 14.35 16.106 15.177 15.313C15.826 16.269 16.93 17 18 17L18.002 16.981C18.064 16.994 18.129 17 18.195 17H18.4C20.552 17 22 15.306 22 12.782V12C22 6.486 17.514 2 12 2ZM12 14.599C10.566 14.599 9.4 13.433 9.4 11.999C9.4 10.565 10.566 9.399 12 9.399C13.434 9.399 14.6 10.565 14.6 11.999C14.6 13.433 13.434 14.599 12 14.599Z"></path>
+                <div class="iconWrapper-2OrFZ1">
+                    <svg width="40" height="32" viewBox="0 0 40 40" class="icon-22AiRD">
+                        <mask id="1e790872-400c-4750-815a-1afdbe1cdf12" width="40" height="40">
+                            <circle cx="16" cy="16" r="16" fill="white"></circle>
+                            <rect color="black" x="19" y="19" width="16" height="16" rx="8" ry="8"></rect>
+                        </mask>
+                        <foreignObject x="0" y="0" width="40" height="40" mask="url(#svg-mask-avatar-default)">
+                            <img src="${getAvatar(friend_uid)}" class="avatar-VxgULZ">
+                        </foreignObject>
                     </svg>
                 </div>
                 <h3 role="button" class="cursorPointer-1j7DL8 title-29uC1r base-1x0h_U size16-1P40sf RT_username"></h3>
@@ -41,7 +47,7 @@
                         <path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M21 3H24V5H21V8H19V5H16V3H19V0H21V3ZM10 12C12.205 12 14 10.205 14 8C14 5.795 12.205 4 10 4C7.795 4 6 5.795 6 8C6 10.205 7.795 12 10 12ZM10 13C5.289 13 2 15.467 2 19V20H18V19C18 15.467 14.711 13 10 13Z"></path>
                     </svg>
                 </div>
-                <div class="search-36MZv-">
+                <div class="search-36MZv- hidden">
                     <div class="search-2oPWTC">
                         <div class="searchBar-3dMhjb">
                             <div class="DraftEditor-root">
@@ -1078,20 +1084,13 @@
                     <div class="channelTextArea-rNsIhG channelTextArea-2VhZ6z">
                         <div class="scrollableContainer-2NUZem webkit-HjD9Er">
                             <div class="inner-MADQqc sansAttachButton-td2irx">
-                                <div class="uploadInput-1XtQef hidden">
-                                    <div class="file-input" tabindex="-1" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; opacity: 0; cursor: pointer;"></div>
-                                </div>
-                                <div class="attachWrapper-2TRKBi hidden">
-                                    <button class="attachButton-2WznTc attachButton-2dnuIu button-38aScr lookBlank-3eh9lL colorBrand-3pXr91 grow-q77ONN">
+                                <div class="attachWrapper-2TRKBi">
+                                    <input type="file" id="attachment-${channel_id}" class="hidden" multiple />
+                                    <label for="attachment-${channel_id}" class="attachButton-2WznTc attachButton-2dnuIu button-38aScr lookBlank-3eh9lL colorBrand-3pXr91 grow-q77ONN" style="cursor: pointer">
                                         <div class="contents-18-Yxp attachButtonInner-PQjIyk">
-                                            <svg width="24" height="24" viewBox="0 0 24 24">
-                                                <g fill="none" fill-rule="evenodd">
-                                                    <path class="attachButtonPlus-jWVFah" fill="currentColor" fill-rule="nonzero" d="M22.031 12.665c-.923-.4338-1.9384-.665-2.9778-.665-.695 0-1.3663.1013-2 .29V11h-4V7h-2v4h-4v2h4v4h1.29c-.1887.6337-.29 1.305-.29 2 0 1.0394.2312 2.055.665 2.978-.2207.0146-.4424.022-.665.022-2.6522 0-5.1957-1.0536-7.071-2.929C3.1067 17.1958 2.053 14.6523 2.053 12c0-5.5228 4.4772-10 10-10 2.6522 0 5.1957 1.0536 7.071 2.929 1.8754 1.8753 2.929 4.4188 2.929 7.071 0 .2225-.0074.4443-.022.665zM15.4457 13c-.9793.59-1.8023 1.413-2.3924 2.3924V13h2.3924z"></path>
-                                                    <path class="attachButtonPlay-3iJ0mf" fill="currentColor" d="M19.0532 14c1.326 0 2.598.5268 3.5355 1.4645.9377.9376 1.4645 2.2094 1.4645 3.5355 0 1.326-.5268 2.598-1.4645 3.5355C21.651 23.4732 20.3793 24 19.0532 24c-1.326 0-2.5978-.5268-3.5355-1.4645C14.58 21.598 14.0532 20.326 14.0532 19c0-2.7614 2.2386-5 5-5zm-1 7l3-2-3-2v4z"></path>
-                                                </g>
-                                            </svg>
+                                            <img src="img/unknown.png" height="24" width="24" />
                                         </div>
-                                    </button>
+                                    </label>
                                 </div>
                                 <div class="textArea-12jD-V textAreaSlate-1ZzRVj slateContainer-3Qkn2x">
                                     <div class="placeholder-37qJjk fontSize16Padding-3Wk7zP">Message @<span class="RT_username"></span></div>
@@ -1100,7 +1099,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="typing-2GQL18 base-gE7OpD hidden" styl="font-size: 14px;">
+                    <div class="typing-2GQL18 base-gE7OpD hidden" styl="font-size: 12px;">
                         <svg width="24.5" height="7" class="ellipsis-19qdx6 dots-3Bkt3k themed-IQiCm3" style="margin-top: 1px;">
                             <g style="opacity: 1;">
                                 <circle cx="3.5" cy="3.5" r="3.5" fill="currentColor" style="opacity: 1;"></circle>
@@ -1108,7 +1107,7 @@
                                 <circle cx="21" cy="3.5" r="3.5" fill="currentColor" style="opacity: 1;"></circle>
                             </g>
                         </svg>
-                        <span class="text-1y-e8-" style="margin-top: 2px;"><strong>Firebase</strong> is typing...</span>
+                        <span class="text-1y-e8-" style="margin-top: 2px;"></span>
                     </div>
                     <div class="wrapper-39oAo3 channelBlockedArea-fj903 hidden">
                         <div class="content-c_0cLD">
@@ -1129,12 +1128,20 @@
 
     document.getElementById('main-body').appendChild(div);
 
-    // Send message on enter
     const input = div.querySelectorAll('.messageField')[0];
+    const file = document.getElementById(`attachment-${channel_id}`);
 
+    // Send attachment
+    file.onchange = event => {        
+        sendAttachmentHandler(channel_id, event.target.files);
+    }
+
+    // Send message on enter
     input.addEventListener('keypress', event => {
         if (!event.shiftKey && event.key === 'Enter') {
+            isUserTyping(channel_id, false);
             sendPrivateMessage(channel_id);
+
             event.returnValue = false;
 
             let chatdiv = document.querySelectorAll(".textArea-12jD-V");
@@ -1148,6 +1155,17 @@
             };
         }
     });
+
+    input.onpaste = event => {
+        const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+
+        for (i in items) {
+            if (items[i].kind === 'file') return sendAttachmentHandler(
+                channel_id,
+                [items[i].getAsFile()]
+            );
+        }
+    };
 
     // Placeholder behavior
     input.addEventListener('input', () => {
@@ -1188,6 +1206,36 @@
     div.querySelectorAll('.block-button-rj93')[0].onclick = () => {
         blockFriend(friend_uid);
     }
+
+    // Auto focus the input anywhere within the chat
+    document.addEventListener('keypress', () => {
+        if (!input.activeElement) input.focus();
+    });
+
+    // Typing indicator behavior
+    input.oninput = async () => {
+        const temp = input.innerText;
+
+        await delay(TYPING_INDICATOR_THRESHOLD);
+        
+        if (!input.innerHTML) return isUserTyping(channel_id, false);
+        isUserTyping(channel_id, temp != input.innerText);
+    }
+
+    // Create typing indicator listener
+    createTypingIndicatorListener(channel_id);
+}
+
+
+/**
+ * 
+ * @param {*} channel_id Channel ID
+ */
+function removeChat(channel_id) {
+    const mainBody = document.getElementById('main-body');
+    const chat = document.getElementById(channel_id);
+
+    mainBody.removeChild(chat);
 }
 
 
@@ -1202,7 +1250,5 @@ function selectMainBody(id) {
         body.classList.add('hidden');
     });
 
-    const selectedBody = document.getElementById(id);
-
-    selectedBody.classList.remove('hidden');
+    document.getElementById(id).classList.remove('hidden');
 }
